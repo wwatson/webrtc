@@ -49,6 +49,15 @@ func main() {
 		fmt.Printf("Connection State has changed %s \n", connectionState.String())
 	}
 
+	peerConnection.Ontrack = func(track *webrtc.RTCTrack) {
+		codec := track.Codec
+		fmt.Printf("Track has started, of type %d: %s \n", track.PayloadType, codec.Name)
+		for {
+			<-track.Packets
+			fmt.Print("Got Packet")
+		}
+	}
+
 	// Janus
 	gateway, err := janus.Connect("ws://39.106.248.166:8188/")
 
