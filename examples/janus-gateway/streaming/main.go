@@ -106,6 +106,8 @@ func main() {
 	if msg.Jsep != nil {
 		offer := msg.Jsep["sdp"].(string)
 
+		fmt.Println("offer", offer)
+
 		sdp := webrtc.RTCSessionDescription{
 			Type: webrtc.RTCSdpTypeAnswer,
 			Sdp:  offer,
